@@ -44,3 +44,12 @@ All orchestration lives in **n8n**, a low-code automations platform that keeps e
 > • Snowflake account + credentials  
 > • Pinecone API key  
 > • n8n (self-hosted or cloud)
+
+## 🎥 Demo Video
+
+<video controls width="640">
+  <source src="SlackQL_demo_video.mp4" type="video/mp4">
+  Sorry, your browser doesn’t support embedded videos.  
+  You can watch it on <a href="https://www.linkedin.com/posts/your-post-id-here">LinkedIn</a>.
+</video>
+
