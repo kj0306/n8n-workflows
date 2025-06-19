@@ -42,6 +42,20 @@ All orchestration lives in **n8n**, a low-code automations platform that keeps e
 > **Prerequisites**  
 > • Slack workspace & bot token  
 > • Snowflake account + credentials  
-> • Pinecone API key  
+> • Pinecone API key
 > • n8n (self-hosted or cloud)
+
+## 🎥 Demo Video
+
+<video src="https://github.com/user-attachments/assets/aa4f38ab-770a-4b5c-978c-f7b7c1ba4c59"
+       title="SlackQL live demo"
+       controls
+       width="700">
+  Sorry, your browser doesn’t support embedded videos.
+</video>
+
+
+
+
+
 
