@@ -1,0 +1,588 @@
+{
+  "name": "SlackQL_demo",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -260,
+        500
+      ],
+      "id": "5b2a18d5-134d-4633-878b-6e577e8c19ac",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "demo",
+          "mode": "list",
+          "cachedResultName": "demo"
+        },
+        "embeddingBatchSize": 1,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.2,
+      "position": [
+        920,
+        500
+      ],
+      "id": "2e8bdf48-148e-42a5-ab7c-d3107bf1a9cd",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "HTw8l404y8hYPg40",
+          "name": "PineconeApi account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "QUERY",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        280,
+        500
+      ],
+      "id": "db9fa7af-68ff-453d-bacd-5f251e7648da",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1024
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        900,
+        740
+      ],
+      "id": "b45bb4f0-40d1-4818-a69c-cd2a4d6572c1",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "9Shp5QyhMUNw53ot",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        740
+      ],
+      "id": "788fa4fc-eaac-4acd-b2b0-d71e2c74ce7a",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "chunkSize": 1000000,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        960
+      ],
+      "id": "d1a4483f-e50c-4fe1-b206-39abac2aef6c",
+      "name": "Recursive Character Text Splitter"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "products_knowledge_base",
+        "toolDescription": "Containes different tables having different types of offers data. Appropriate tables have to be selected to execute the SQL query.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "demo",
+          "mode": "list",
+          "cachedResultName": "demo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.2,
+      "position": [
+        20,
+        -220
+      ],
+      "id": "e4a14f1c-3b6d-4f6e-83d2-5ed68f6283c5",
+      "name": "Pinecone Vector Store1",
+      "credentials": {
+        "pineconeApi": {
+          "id": "HTw8l404y8hYPg40",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 1024
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        100,
+        -60
+      ],
+      "id": "e850f2af-0c16-4f69-b586-c138a18f0675",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "9Shp5QyhMUNw53ot",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -340,
+        -140
+      ],
+      "id": "187c04ee-0919-4dec-aff2-9e80fb6d3f75",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "9Shp5QyhMUNw53ot",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        440,
+        -260
+      ],
+      "id": "50160ae8-77ae-467b-ace4-5da6eefd4648",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "9Shp5QyhMUNw53ot",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C090N5VJQNS",
+          "mode": "list",
+          "cachedResultName": "cosmic_lasso_ai_analyst"
+        },
+        "text": "={{ $json.text }}\n\n",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        1460,
+        -460
+      ],
+      "id": "d16de736-7293-4332-b7c6-9eb934adc227",
+      "name": "Slack1",
+      "webhookId": "965e515b-89df-4a51-bc1a-13cb5ddb4778",
+      "credentials": {
+        "slackApi": {
+          "id": "fcgHf6aMwPzNzVcw",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "trigger": [
+          "app_mention"
+        ],
+        "watchWorkspace": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        -460
+      ],
+      "id": "7b9e8eb1-fa6e-45d6-9ed8-6468ba50f3e2",
+      "name": "Slack Trigger",
+      "webhookId": "6bfeb95a-568c-497c-86f3-f153b5c1c942",
+      "credentials": {
+        "slackApi": {
+          "id": "fcgHf6aMwPzNzVcw",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "options": {
+          "systemMessage": "You are an expert SQL query generator that converts natural-language questions into optimized, syntactically correct SELECT-only Snowflake SQL queries using real-time schema awareness.\n🎯 Responsibilities\nConvert user prompts into valid Snowflake SQL.\nuse the products_knowledge_base vector datase to choose the right table and schemas. \n\nWhile generating query always mention database which is demo_db and schema which is products_db along with the correct table name found from the search in the query name. \n\nDo not generate an Insert and deleter statements anytime. Always select statements.\n\nFor date related questions make sure to output the corresponding date like yesterdays date or today's date in the output.\n "
+        }
+      },
+      "id": "7403725d-1278-47bd-b71b-03480eb1438f",
+      "name": "SlackQL Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -240,
+        -460
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C090N5VJQNS",
+          "mode": "list",
+          "cachedResultName": "cosmic_lasso_ai_analyst"
+        },
+        "text": "={{ $json.text }}\n\n",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        1040,
+        -200
+      ],
+      "id": "66dc1542-5b8a-4f32-93cf-0ad7fe9150b9",
+      "name": "Slack",
+      "webhookId": "965e515b-89df-4a51-bc1a-13cb5ddb4778",
+      "credentials": {
+        "slackApi": {
+          "id": "fcgHf6aMwPzNzVcw",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n    'SELECT GET_DDL(''TABLE'', ''' ||\n           TABLE_CATALOG || '.' || TABLE_SCHEMA || '.' || TABLE_NAME ||\n    ''');' AS QUERY\nFROM   DEMO_DB.INFORMATION_SCHEMA.TABLES\nWHERE  TABLE_SCHEMA = 'PRODUCTS_DEMO'\n  AND  TABLE_TYPE = 'BASE TABLE';\n"
+      },
+      "type": "n8n-nodes-base.snowflake",
+      "typeVersion": 1,
+      "position": [
+        20,
+        500
+      ],
+      "id": "b0aeda3d-9c95-4a33-8ec6-9da703343b4f",
+      "name": "Extract Table info",
+      "credentials": {
+        "snowflake": {
+          "id": "PqME5hfc3EJeNUrL",
+          "name": "Snowflake account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.QUERY }}"
+      },
+      "type": "n8n-nodes-base.snowflake",
+      "typeVersion": 1,
+      "position": [
+        580,
+        500
+      ],
+      "id": "491ae626-62fd-4139-b5cb-3a2375e038b3",
+      "name": "Extracts Schema info for each table",
+      "credentials": {
+        "snowflake": {
+          "id": "PqME5hfc3EJeNUrL",
+          "name": "Snowflake account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an SQL Expert in correcting the syntax of the sql query.\n\nRead the SQL query from :  {{ $json.output }} and correct syntactical errors if any. do not change column names or table names. \nThe output of this is a corrected snowflake query that Can be passed directly into the Snowflake node, no need to return any explanations. \n\nAlways mention the database which is demo_db and schema is named as products_demo along with the table name.\n\n",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        420,
+        -460
+      ],
+      "id": "59aa4bbe-83e6-418a-b634-8d3a595eac3d",
+      "name": "SQL Checker"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.text.replace(/```sql|```/g, '').trim() }}"
+      },
+      "type": "n8n-nodes-base.snowflake",
+      "typeVersion": 1,
+      "position": [
+        880,
+        -460
+      ],
+      "id": "a29cb507-9675-43cd-b5ea-ea383955ad1e",
+      "name": "Snowflake1",
+      "credentials": {
+        "snowflake": {
+          "id": "PqME5hfc3EJeNUrL",
+          "name": "Snowflake account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = items.map(item => item.json);\nconst headers = Object.keys(rows[0]);\n\n// Calculate the max width for each column, including header\nconst colWidths = headers.map(h =>\n  Math.max(h.length, ...rows.map(row => (row[h] != null ? String(row[h]).length : 0)))\n);\n\n// Helper to pad strings to the right\nconst pad = (str, len) => str.toString().padEnd(len, ' ');\n\n// Build the header row\nlet output = '```\\n';\noutput += headers.map((h, i) => pad(h, colWidths[i])).join('  ') + '\\n';\n\n// Build the data rows, aligned under the correct column\nfor (const row of rows) {\n  output += headers.map((h, i) => pad(row[h] ?? '', colWidths[i])).join('  ') + '\\n';\n}\n\noutput += '```';\n\nreturn [\n  {\n    json: {\n      text: output\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        -460
+      ],
+      "id": "3175b280-cee5-487b-bcf9-7b500edfb3c3",
+      "name": "Table to Msg"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Extract Table info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Extracts Schema info for each table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store1": {
+      "ai_tool": [
+        [
+          {
+            "node": "SlackQL Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "SlackQL Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "SQL Checker",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack1": {
+      "main": [
+        []
+      ]
+    },
+    "Slack Trigger": {
+      "main": [
+        [
+          {
+            "node": "SlackQL Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SlackQL Agent": {
+      "main": [
+        [
+          {
+            "node": "SQL Checker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Table info": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extracts Schema info for each table": {
+      "main": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL Checker": {
+      "main": [
+        [
+          {
+            "node": "Snowflake1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Snowflake1": {
+      "main": [
+        [
+          {
+            "node": "Table to Msg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Table to Msg": {
+      "main": [
+        [
+          {
+            "node": "Slack1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1b2f6f63-3e02-4d8a-8553-25a5b67c4dee",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "146e107789ae6b6ab734744bddc8c65be39972522c6992d9aeef5e1d9d19aa0b"
+  },
+  "id": "4OrVGH6dgSIYP4FU",
+  "tags": []
+}
